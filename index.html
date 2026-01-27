@@ -604,10 +604,52 @@ body{ cursor:none; }
   backdrop-filter: blur(10px);
 }
 
+/* ===== Back to Top ===== */
+.back-top{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 900;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border:1px solid rgba(236,234,243,.18);
+  background: rgba(12,12,20,.55);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  color: rgba(236,234,243,.92);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events:none;
+  transition: opacity .22s ease, transform .22s ease, border-color .22s ease, background .22s ease;
+}
+.back-top:hover{
+  border-color: rgba(156,134,201,.55);
+  background: linear-gradient(180deg, rgba(156,134,201,.18), rgba(12,12,20,.55));
+}
+.back-top.show{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events:auto;
+}
+
+/* 避免和右側 nav-rail 在小螢幕打架 */
+@media (max-width: 980px){
+  .back-top{ right: 12px; bottom: 12px; }
+}
+
+  
 </style>
 </head>
 
 <body>
+<button class="back-top" id="backTop" type="button" aria-label="返回頂部">
+  ↑
+</button> 
 <div class="crosshair" id="crosshair"><div class="ring"></div></div>
 
 <nav class="nav-rail" aria-label="Page sections">
@@ -1193,8 +1235,27 @@ body{ cursor:none; }
   });
 })();
 </script>
+  <script>
+(() => {
+  const btn = document.getElementById('backTop');
+  if(!btn) return;
+
+  const toggle = () => {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('show', y > 420);
+  };
+
+  window.addEventListener('scroll', toggle, { passive:true });
+  toggle();
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
 </body>
 </html>
+
 
 
 
