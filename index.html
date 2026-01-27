@@ -341,12 +341,28 @@ body{ cursor:none; }
 .card.right{ right:2%; --base: rotate(7deg) translateY(46px); z-index: 2; }
 
 @media (max-width: 640px){
-  .card{ height: 540px; }
-  .card-media{ height: 440px; }
-  .card.left{ left:0%;  --base: rotate(-6deg) translateY(64px); }
-  .card.mid{  left:50%; --base: translateX(-50%) rotate(0deg) translateY(6px); }
-  .card.right{ right:0%; --base: rotate(6deg) translateY(84px); }
+  /* deck 不要那麼高，避免卡牌過大撐爆 hero */
+  .deck{ height: 560px; }
+
+  /* ✅卡牌整體縮小：寬更窄、高更短 */
+  .card{
+    width: min(300px, 72vw);
+    height: 460px;
+    border-radius: 24px;
+  }
+
+  /* 圖也一起縮短 */
+  .card-media{
+    height: 360px;
+    border-radius: 16px;
+  }
+
+  /* ✅重疊位置微調：更集中、不要佔滿螢幕 */
+  .card.left{  left:-2%; --base: rotate(-7deg) translateY(78px); }
+  .card.mid{   left:50%; --base: translateX(-50%) rotate(0deg) translateY(22px); }
+  .card.right{ right:-2%;--base: rotate(7deg) translateY(102px); }
 }
+
 
 /* ===== 升級 1：聚焦模式（不覆蓋 transform，改用 opacity/filter + 內層縮放） ===== */
 .deck.is-reading .card{
@@ -1179,5 +1195,6 @@ body{ cursor:none; }
 </script>
 </body>
 </html>
+
 
 
