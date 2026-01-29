@@ -157,7 +157,7 @@ body{ cursor:none; }
 /* 文字說明 */
 .nav-rail .ig-label{
   font-size: 12px;
-  letter-spacing: .2px;nav-btn ig-btn
+  letter-spacing: .2px;
 
   color: rgba(236,234,243,.78);
   white-space: nowrap;
@@ -336,38 +336,43 @@ body{ cursor:none; }
   .deck{height: 560px}
 }
 @media (max-width: 640px){
-  /* hero 卡牌區高度再降一點 */
+  /* hero 卡牌區高度 */
   .deck{ height: 480px; }
 
-  /* ✅ 卡片本體再縮小 */
+  /* 卡片縮小 */
   .card{
     width: min(220px, 62vw);
     height: 400px;
     border-radius: 22px;
   }
-
   .card-media{
     height: 310px;
     border-radius: 14px;
   }
 
-  /* ✅ 更緊密的扇形（像一疊牌） */
-  .card.left{
+  /* ✅ 關鍵：三張都用 left:50%，並且把 right 清掉，避免漂移 */
+  .card.left,
+  .card.mid,
+  .card.right{
     left: 50%;
+    right: auto; /* ⭐最重要：取消桌機 right:2% */
+  }
+
+  /* 更緊密扇形 */
+  .card.left{
     --base: translateX(-58%) rotate(-12deg) translateY(90px);
     z-index: 1;
   }
   .card.mid{
-    left: 50%;
     --base: translateX(-50%) rotate(0deg) translateY(42px);
     z-index: 3;
   }
   .card.right{
-    left: 50%;
     --base: translateX(-42%) rotate(10deg) translateY(96px);
     z-index: 2;
   }
 }
+
 
 /* ⭐關鍵：用 CSS 變數保存「基礎定位」，JS 只改 --lift，不會把定位 transform 覆蓋掉 */
 .card{
@@ -826,15 +831,9 @@ body{ cursor:none; }
 /* 手機置中更好看 */
 @media (max-width: 640px){
   .contact-actions{
-    flex-direction: column;
-  }
-  .contact-btn{
-    justify-content: center;
- 
-  .contact-panel{
-    padding-top: 36px;
-    padding-bottom: 40px;
- }
+    flex-direction: column; }
+  .contact-btn{ justify-content: center;}
+ .contact-panel{padding-top: 36px; padding-bottom: 40px; }
 }
 
 
@@ -1594,6 +1593,7 @@ if(igBtns.length){
 </script>
 </body>
 </html>
+
 
 
 
